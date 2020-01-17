@@ -1,0 +1,23 @@
+{% block node_widget %}
+<table class="table table-hover table-sm m-0" style="font-size: 80%;">
+  <tr class="table-primary">
+    <th>Node</th>
+    <th>Route</th>
+    <th>Path</th>
+    <th>Method</th>
+    <th>Host</th>
+    <th>Scheme</th>
+  </tr>
+  {% for child in form %}
+    {% set _node = form.vars.nodes[child.vars.value] %}
+    <tr{% if child.vars.attr.disabled %} class="text-secondary"{% endif %}>
+      <td>{{ form_widget(child, {translation_domain: choice_translation_domain}) }}</td>
+      <td>{{ child.vars.value }}</td>
+      <td>{{ _node.path }}</td>
+      <td>{{ _node.methods|join(',')|default('ANY') }}</td>
+      <td>{{ _node.host|default('ANY') }}</td>
+      <td>{{ _node.schemes|join(',')|default('ANY') }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock node_widget %}

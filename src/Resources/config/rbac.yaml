@@ -1,0 +1,20 @@
+services:
+    rbac.node_collection:
+        class: Siganushka\RBACBundle\Node\NodeCollection
+        arguments: ['@router']
+
+    rbac.node_type:
+        class: Siganushka\RBACBundle\Form\Type\NodeType
+        arguments: ['@rbac.node_collection', '%rbac.translation_domain%']
+        tags: ['form.type']
+
+    rbac.node_voter:
+        class: Siganushka\RBACBundle\Security\Voter\NodeVoter
+        arguments: ['@security.authentication.trust_resolver', '@rbac.node_collection']
+        tags: ['security.voter']
+
+    rbac.node_listener:
+        class: Siganushka\RBACBundle\EventListener\NodeListener
+        arguments: ['@security.authorization_checker', '@rbac.node_collection']
+        tags: ['kernel.event_subscriber']
+
