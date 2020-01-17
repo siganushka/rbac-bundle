@@ -11,7 +11,7 @@
 install bundle
 
 ```php
-$ composer require siganushka/rbac-bundle
+$ composer require siganushka/rbac-bundle:dev-master
 ```
 
 ### step 2
